@@ -1,0 +1,60 @@
+<div class="cartBox">
+  <h1 class="text-danger">Shopping Cart</h1>
+  <div class="headCart">
+    <p class="lead">
+      You have <label class="text-danger">{{ cartProducts.length }}</label> item(s) in your cart
+    </p>
+    <span class="text-danger card-header" (click)="clearCart()">Clear Shopping Cart</span>
+  </div>
+  <div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>image</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th style="width: 25%;">Quantity</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartProducts">
+          <td><img src="{{item.item.image}}" alt="aaaa" style="width: 50px; height: 50px;">
+            <img ></td>
+          <td>{{item.item.title}}</td>
+          <td>{{item.item.price}} L.E</td>
+          <td>
+            <div class="quantity">
+              <button class="btn btn-dark" type="button" (click)=" decreaseQuantity(item)">-</button>
+              <input class="form-control" type="number" (change)="detectChange()" [(ngModel)]="item.quantity" min="1">
+              <button class="btn btn-dark" type="button" (click)="increaseQuantity(item)">+</button>
+            </div>
+          </td>
+          <td>{{item.item.price*item.quantity  | number:'1.0-0' }} L.E</td>
+          <td>
+            <button class="btn btn-danger" (click)="removeItem(item)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th colspan="4">Total:</th>
+          <th>{{total}} L.E</th>
+          <th>
+            <button class="btn btn-success" (click)="orderNow()" >Order Now</button>
+          </th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div *ngIf="orderSuccess" class="alert alert-success" role="alert">
+    <strong>Well done!</strong> Your order is successfully sent.
+  </div>
+</div>
+
+
+
+
+
+
